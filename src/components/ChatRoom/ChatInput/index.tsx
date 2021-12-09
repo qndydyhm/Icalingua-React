@@ -1,4 +1,4 @@
-import Input from '@mui/material/Input'
+import InputBase from '@mui/material/InputBase'
 import { sendMessage } from 'adapters/room'
 import React, { useRef } from 'react'
 import styles from './input.module.scss'
@@ -10,6 +10,8 @@ export default function ChatInput({ roomId }: { roomId: number }) {
     if (input.current?.value.length) {
       console.log({ roomId: roomId, content: input.current.value })
       sendMessage({ roomId: roomId, content: input.current.value, at: [] })
+
+      input.current.value = ''
     }
   }
 
@@ -24,7 +26,7 @@ export default function ChatInput({ roomId }: { roomId: number }) {
   return (
     <div className={styles.chatInputField}>
       <div className={styles.chatInputContainer}>
-        <Input className={styles.chatInput} placeholder="请输入消息" onKeyUp={handleKeyUp} inputRef={input} />
+        <InputBase className={styles.chatInput} placeholder="请输入消息" onKeyUp={handleKeyUp} inputRef={input} />
       </div>
       <button onClick={handleSubmit}>Send</button>
     </div>
