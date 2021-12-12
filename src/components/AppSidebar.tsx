@@ -1,6 +1,5 @@
-import SearchIcon from '@mui/icons-material/Search'
-import Button from '@mui/material/Button'
-import Input from '@mui/material/Input'
+import { Search as SearchIcon } from '@mui/icons-material'
+import { Avatar, Button, Grid, Input } from '@mui/material'
 import { RootState, useAppSelector } from 'app/store'
 import React, { useState } from 'react'
 import { getUserAvatarUrl } from 'utils/apis'
@@ -24,39 +23,35 @@ export default function AppSidebar() {
   }
 
   return (
-    <div className={styles.chatSidebar}>
-      <div className={styles.sidebarHead}>
-        <div className={styles.sidebarTitle}>
+    <Grid container item xs={12} md={3} direction="column" wrap="nowrap" className={styles.sidebar}>
+      <Grid item className={styles.sidebarHead}>
+        <Grid container item className={styles.sidebarTitle}>
           <div className={styles.menuButton}>
-            <span>
-              <img src={getUserAvatarUrl(onlineData?.user_id as number)} alt="avatar" />
-            </span>
+            <Avatar src={getUserAvatarUrl(onlineData?.user_id as number)} />
           </div>
           <div className={styles.searchBox}>
             <Input placeholder="Search" className={styles.searchInput} onChange={handleSearch} />
             <SearchIcon className={styles.searchIcon} />
           </div>
-        </div>
+        </Grid>
 
-        <div className={styles.foldersTabs}>
+        <Grid item className={styles.foldersTabs}>
           {/* TODO: 支持自定义文件夹 */}
-          <div>
-            <Button className={folder === 'All' ? styles.folderActive : ''} onClick={() => setFolder('All')}>
-              全部会话
-            </Button>
-            <Button className={folder === 'Friends' ? styles.folderActive : ''} onClick={() => setFolder('Friends')}>
-              好友
-            </Button>
-            <Button className={folder === 'Group' ? styles.folderActive : ''} onClick={() => setFolder('Group')}>
-              群组
-            </Button>
-          </div>
-        </div>
-      </div>
+          <Button className={folder === 'All' ? styles.folderActive : ''} onClick={() => setFolder('All')}>
+            全部会话
+          </Button>
+          <Button className={folder === 'Friends' ? styles.folderActive : ''} onClick={() => setFolder('Friends')}>
+            好友
+          </Button>
+          <Button className={folder === 'Group' ? styles.folderActive : ''} onClick={() => setFolder('Group')}>
+            群组
+          </Button>
+        </Grid>
+      </Grid>
 
-      <div className={styles.sidebarContent}>
+      <Grid item className={styles.sidebarContent}>
         <SidebarRooms folder={folder} search={search} />
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   )
 }

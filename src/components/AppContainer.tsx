@@ -1,14 +1,22 @@
-import { RootState, useAppSelector } from 'app/store'
+import { Grid } from '@mui/material'
+import { joinRoom } from 'app/features/ui/uiSlices'
+import { RootState, useAppDispatch, useAppSelector } from 'app/store'
 import React from 'react'
-import styles from './AppContainer.module.scss'
 import ChatRoom from './ChatRoom'
 
 export default function AppContainer() {
   const onlineData = useAppSelector((state: RootState) => state.account.onlineData)
   const room = useAppSelector((state: RootState) => state.ui.room)
+  const dispatch = useAppDispatch()
+
+  const handleKeyUp = (event: React.KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      dispatch(joinRoom(null))
+    }
+  }
 
   return (
-    <div className={styles.chatContainer}>
+    <Grid item xs={12} md={9} tabIndex={-1} onKeyUp={handleKeyUp}>
       {room ? (
         <ChatRoom />
       ) : (
@@ -24,6 +32,6 @@ export default function AppContainer() {
           </p>
         </div>
       )}
-    </div>
+    </Grid>
   )
 }

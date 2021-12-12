@@ -1,5 +1,7 @@
-import { getConfig } from 'providers/configProvider'
+import { Button, Container, Grid, TextField } from '@mui/material'
+import { getConfig, saveConfig } from 'providers/configProvider'
 import React, { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
@@ -9,36 +11,30 @@ export default function Login() {
     if (!requireLogin) navigate('/')
   }, [])
 
-  // const [form] = Form.useForm()
+  const { register, setValue, getValues } = useForm()
 
-  // useEffect(() => {
-  //   form.setFieldsValue(getConfig())
-  // }, [])
-  //
-  // const login = async () => {
-  //   saveConfig(form.getFieldsValue())
-  //   navigate('/', { replace: true }) // 不在 history 里留记录，因为不应该留
-  // }
+  useEffect(() => {
+    setValue('server', getConfig().server)
+    setValue('privateKey', getConfig().privateKey)
+  }, [])
 
-  return <div />
-  // return (
-  //  <div>
-  //    <Row className="box" justify="center">
-  //      <Col span={8}>
-  //        <Form layout="vertical" form={form}>
-  //          <Form.Item label="服务器地址" name="server">
-  //            <Input />
-  //          </Form.Item>
-  //          <Form.Item label="私钥" name="privateKey">
-  //            <Input />
-  //          </Form.Item>
-  //
-  //          <Button htmlType="submit" onClick={login}>
-  //            登录
-  //          </Button>
-  //        </Form>
-  //      </Col>
-  //    </Row>
-  //  </div>
-  // )
+  const login = async () => {
+    saveConfig({ server: getValues('server'), privateKey: getValues('privateKey') })
+    navigate('/', { replace: true }) // 不在 history 里留记录，因为不应该留
+  }
+
+  return (
+    <Container>
+      <form onSubmit={login} style={{ margin: '10% auto' }}>
+        <Grid container gap={2} justifyContent="center" flexDirection="column">
+          <h1 style={{ textAlign: 'center' }}>连接服务器</h1>
+          <TextField label="服务器地址" {...register('server')} />
+          <TextField label="私钥" {...register('privateKey')} />
+          <Button onClick={login} type="submit">
+            登录
+          </Button>
+        </Grid>
+      </form>
+    </Container>
+  )
 }

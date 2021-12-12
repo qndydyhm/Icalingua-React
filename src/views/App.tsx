@@ -1,5 +1,5 @@
+import { Grid } from '@mui/material'
 import { updateOnlineData, updateRooms, updateRoomsSingle } from 'app/features/account/accountSlices'
-import { joinRoom } from 'app/features/ui/uiSlices'
 import { useAppDispatch } from 'app/store'
 import AppContainer from 'components/AppContainer'
 import AppSidebar from 'components/AppSidebar'
@@ -16,19 +16,9 @@ export default function App() {
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(true)
 
-  const handleKeyUp = (event: React.KeyboardEvent) => {
-    if (event.key === 'Escape') {
-      dispatch(joinRoom(null))
-    }
-  }
-
   const initSubscribe = () => {
     events.account.on('updateBot', async (bot: Bridge) => {
       dispatch(updateOnlineData(bot.onlineData as OnlineData))
-
-      // dispatch(updateFriends(await getFriends()))
-      // dispatch(updateGroups(await getGroups()))
-
       setLoading(false)
     })
 
@@ -51,15 +41,15 @@ export default function App() {
   }, [])
 
   return (
-    <div className="layout" tabIndex={-1} onKeyUp={handleKeyUp}>
-      {!loading ? (
+    <Grid container style={{ height: '100%' }}>
+      {loading ? (
+        <PageLoading />
+      ) : (
         <>
           <AppSidebar />
           <AppContainer />
         </>
-      ) : (
-        <PageLoading />
       )}
-    </div>
+    </Grid>
   )
 }
