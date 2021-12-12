@@ -1,4 +1,4 @@
-import { Button, Grid, TextField } from '@mui/material'
+import { Button, Container, Grid, TextField } from '@mui/material'
 import { getConfig, saveConfig } from 'providers/configProvider'
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -24,15 +24,17 @@ export default function Login() {
   }
 
   return (
-    <form onSubmit={login} style={{ width: '60%', margin: '6rem auto' }}>
-      <Grid container justifyContent="center" flexDirection="column" gap={2}>
-        <h1 style={{ textAlign: 'center' }}>连接服务器</h1>
-        <TextField label="服务器地址" {...register('server')} />
-        <TextField label="私钥" {...register('privateKey')} />
-        <Button onClick={login} type="submit">
-          登录
-        </Button>
-      </Grid>
-    </form>
+    <Container>
+      <form onSubmit={login} style={{ margin: '10% auto' }}>
+        <Grid container gap={2} justifyContent="center" flexDirection="column">
+          <h1 style={{ textAlign: 'center' }}>连接服务器</h1>
+          <TextField label="服务器地址" {...register('server')} />
+          <TextField label="私钥" {...register('privateKey')} />
+          <Button onClick={login} type="submit">
+            登录
+          </Button>
+        </Grid>
+      </form>
+    </Container>
   )
 }

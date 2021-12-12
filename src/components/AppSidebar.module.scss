@@ -1,15 +1,15 @@
+/*
 $sidebar-min-width: 18rem;
 $sidebar-max-width: calc(1680px / 4);
 
 .chatSidebar {
-  display: flex;
+  //display: flex;
   overflow-y: auto;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 25%;
+  //flex-direction: column !important;
+  //justify-content: flex-start;
+  //width: 25%;
   //max-width: $sidebar-max-width;
   height: 100%;
-
   background: var(--surface-color);
 
   .sidebarHead {
@@ -144,4 +144,10 @@ $sidebar-max-width: calc(1680px / 4);
   .sidebarContent {
     padding: 0 1rem;
   }
+}
+*/
+
+.sidebar {
+  overflow-y: auto;
+  max-height: 100%;
 }
