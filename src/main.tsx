@@ -1,4 +1,5 @@
 import { store } from 'app/store'
+import { SnackbarProvider } from 'notistack'
 import { initLocalStorage } from 'providers/configProvider'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -11,9 +12,11 @@ initLocalStorage()
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <Router />
-    </Provider>
+    <SnackbarProvider maxSnack={3}>
+      <Provider store={store}>
+        <Router />
+      </Provider>
+    </SnackbarProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 )

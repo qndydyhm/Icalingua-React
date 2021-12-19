@@ -1527,7 +1527,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^1.1.1":
+"clsx@npm:^1.1.0, clsx@npm:^1.1.1":
   version: 1.1.1
   resolution: "clsx@npm:1.1.1::__archiveUrl=https%3A%2F%2Fregistry.nlark.com%2Fclsx%2Fdownload%2Fclsx-1.1.1.tgz"
   checksum: ff052650329773b9b245177305fc4c4dc3129f7b2be84af4f58dc5defa99538c61d4207be7419405a5f8f3d92007c954f4daba5a7b74e563d5de71c28c830063
@@ -2717,6 +2717,7 @@ fsevents@~2.3.2:
     md5: ^2.3.0
     noble-ed25519: ^1.2.6
     nodejs-base64: ^2.0.0
+    notistack: ^2.0.3
     oicq: ^1.21.2
     prettier: ^2.5.0
     react: ^17.0.2
@@ -3481,6 +3482,27 @@ fsevents@~2.3.2:
   version: 3.0.0
   resolution: "normalize-path@npm:3.0.0"
   checksum: 88eeb4da891e10b1318c4b2476b6e2ecbeb5ff97d946815ffea7794c31a89017c70d7f34b3c2ebf23ef4e9fc9fb99f7dffe36da22011b5b5c6ffa34f4873ec20
+  languageName: node
+  linkType: hard
+
+"notistack@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "notistack@npm:2.0.3::__archiveUrl=https%3A%2F%2Fregistry.npmmirror.com%2Fnotistack%2Fdownload%2Fnotistack-2.0.3.tgz"
+  dependencies:
+    clsx: ^1.1.0
+    hoist-non-react-statics: ^3.3.0
+  peerDependencies:
+    "@emotion/react": ^11.4.1
+    "@emotion/styled": ^11.3.0
+    "@mui/material": ^5.0.0
+    react: ^16.8.0 || ^17.0.0
+    react-dom: ^16.8.0 || ^17.0.0
+  peerDependenciesMeta:
+    "@emotion/react":
+      optional: true
+    "@emotion/styled":
+      optional: true
+  checksum: a01c72d877b7636a625ac0709d4160559e2abc5882592498841e300bf0b2a88d4983884a0e00296d119d33c5c37c0df8cb89cf5fe89b696293a947e363e5c2a2
   languageName: node
   linkType: hard
 
