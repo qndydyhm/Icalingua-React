@@ -1,5 +1,11 @@
 import { FriendInfo, GroupInfo, StrangerInfo } from 'oicq'
 
+export interface LogProps {
+  level: 'Info' | 'Warn' | 'Error' | 'Success' | 'Debug'
+  title?: string
+  message: string
+}
+
 export interface Config {
   server: string
   privateKey: string
