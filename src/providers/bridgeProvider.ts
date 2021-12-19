@@ -2,6 +2,7 @@ import { sign } from 'noble-ed25519'
 import { io, Socket } from 'socket.io-client'
 import { Message, Room } from 'types/RoomTypes'
 import { BridgeVersionInfo, OnlineData, OnlineDataBridge } from 'types/RuntimeTypes'
+import { logger } from 'utils/logger'
 import { getConfig } from './configProvider'
 import { events } from './eventProvider'
 
@@ -100,17 +101,17 @@ export function createBridge() {
   let bridgeVersion: BridgeVersionInfo
   let bot: Bridge
 
-  // logger.info(newLogProps('创建Bridge连接...'))
+  logger({ level: 'Info', message: '创建Bridge连接...' })
 
   // 连接服务器
   bridgeSocket = io(getConfig().server, { transports: ['websocket'] })
   bridgeSocket.once('connect_error', async () => {
-    events.ui.emit('showError', {
-      message: '登录失败',
-      description: '与服务器连接失败，请检查服务器地址&协议是否填写正确',
-    })
+    // events.ui.emit('showError', {
+    //   message: '登录失败',
+    //   description: '与服务器连接失败，请检查服务器地址&协议是否填写正确',
+    // })
 
-    events.account.emit('loginFailed')
+    events.account.emit('loginFailed', 'connect')
   })
 
   // 验证身份
@@ -129,11 +130,11 @@ export function createBridge() {
   })
 
   bridgeSocket.once('authFailed', async () => {
-    events.ui.emit('showError', {
-      message: '登录失败',
-      description: '认证失败，请检查 privateKey 是否正确',
-    })
+    // events.ui.emit('showError', {
+    //   message: '登录失败',
+    //   description: '认证失败，请检查 privateKey 是否正确',
+    // })
 
-    events.account.emit('loginFailed')
+    events.account.emit('loginFailed', 'auth')
   })
 }
