@@ -17,15 +17,18 @@ export default function App() {
   const [loading, setLoading] = useState(true)
 
   const initSubscribe = () => {
-    events.account.on('updateBot', async (bot: Bridge) => {
+    // 监听 OnlineData
+    events.account.on('updateOnlineData', async (bot: Bridge) => {
       dispatch(updateOnlineData(bot.onlineData as OnlineData))
       setLoading(false)
     })
 
+    // 监听房间列表
     events.rooms.on('updateRooms', (rooms: Room[]) => {
       dispatch(updateRooms(rooms))
     })
 
+    // 监听房间更新事件
     events.rooms.on('updateRoom', (room: Room) => {
       dispatch(updateRoomsSingle(room))
     })
@@ -34,10 +37,23 @@ export default function App() {
   const navigate = useNavigate()
 
   useEffect(() => {
+    // 判断是否完成登录
     const requireLogin = getConfig().server === '' || getConfig().privateKey === ''
-    if (requireLogin) return navigate('/login', { replace: true }) // 在这里检查配置是否完成，若未完成则不初始化 bridge
+    // 在这里检查配置是否完成，若未完成则不初始化 bridge
+    if (requireLogin) return navigate('/login', { replace: true })
+
+    // 初始化 bridge
     createBridge()
+
+    // 监听 bridge 的事件
     initSubscribe()
+
+    // 关闭事件监听
+    return () => {
+      events.account.off('updateOnlineData')
+      events.rooms.off('updateRooms')
+      events.rooms.off('updateRoom')
+    }
   }, [])
 
   return (

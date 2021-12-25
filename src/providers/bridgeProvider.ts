@@ -49,7 +49,7 @@ export class Bridge {
           age: 0,
         }
 
-        events.account.emit('updateBot', this)
+        events.account.emit('updateOnlineData', this)
       })
     },
     attachMessageEvents: () => {

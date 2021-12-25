@@ -32,20 +32,22 @@ export default function ChatRoom() {
     const fetchMessages = async () => {
       const messages = await getMessages(room.roomId as number)
       dispatch(putMessages(messages))
+
       scrollToButton() // 滚动到底部
     }
 
-    // message.loading({ content: '正在加载聊天记录...', key: 'chat_message' })
-    fetchMessages() // .then(() => message.destroy('chat_message'))
-    attachEvents()
+    // 获取房间信息
+    fetchMessages().then(
+      () => attachEvents(), // 获取房间事件
+    )
 
     return () => {
-      events.messages.off('addMessage')
+      events.messages.off('addMessage') // 关闭消息监听
     }
   }, [room.roomId])
 
   return (
-    <div>
+    <>
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={messages.length === 0}
@@ -65,9 +67,9 @@ export default function ChatRoom() {
         })}
       </div>
 
-      <div ref={bottomElem} />
+      <div id="bottom" ref={bottomElem} />
 
       <ChatInput roomId={room.roomId} />
-    </div>
+    </>
   )
 }

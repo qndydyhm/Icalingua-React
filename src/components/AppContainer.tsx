@@ -16,7 +16,7 @@ export default function AppContainer() {
   }
 
   return (
-    <Grid item xs={12} md={9} tabIndex={-1} onKeyUp={handleKeyUp}>
+    <Grid item xs={12} md={9} tabIndex={-1} style={{ maxHeight: '100%', overflow: 'hidden' }} onKeyUp={handleKeyUp}>
       {room ? (
         <ChatRoom />
       ) : (
