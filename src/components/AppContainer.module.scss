@@ -1,11 +1,12 @@
 .chatContainer {
-  position: relative;
+  position: absolute;
   display: flex;
   overflow-y: auto;
 
   flex-direction: column;
 
   width: 75%;
-  height: 100vh;
+  height: 100%;
+  right: 0%;
   background-color: #f8f9fa;
 }
