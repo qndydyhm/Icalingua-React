@@ -13,7 +13,7 @@ export default function ChatInput({ roomId }: { roomId: number }) {
     input.current.value = ''
   }
 
-  const handleKeyUp = (event: React.KeyboardEvent) => {
+  const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
       handleSubmit()
     }
@@ -27,7 +27,7 @@ export default function ChatInput({ roomId }: { roomId: number }) {
           className={styles.chatInput}
           placeholder="请输入消息"
           fullWidth
-          onKeyUp={handleKeyUp}
+          onKeyPress={handleKeyPress}
           inputRef={input}
         />
       </div>
