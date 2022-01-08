@@ -1,4 +1,4 @@
-import { Input } from '@mui/material'
+import { OutlinedInput, Button } from '@mui/material'
 import { sendMessage } from 'adapters/room'
 import React, { useRef } from 'react'
 import styles from './input.module.scss'
@@ -10,22 +10,30 @@ export default function ChatInput({ roomId }: { roomId: number }) {
     if (input.current?.value.length) {
       sendMessage({ roomId: roomId, content: input.current.value, at: [] })
     }
+    input.current.value = ''
   }
 
   const handleKeyUp = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
       handleSubmit()
     }
-
     return false
   }
 
   return (
     <div className={styles.chatInputField}>
       <div className={styles.chatInputContainer}>
-        <Input className={styles.chatInput} placeholder="请输入消息" onKeyUp={handleKeyUp} inputRef={input} />
+        <OutlinedInput
+          className={styles.chatInput}
+          placeholder="请输入消息"
+          fullWidth
+          onKeyUp={handleKeyUp}
+          inputRef={input}
+        />
       </div>
-      <button onClick={handleSubmit}>Send</button>
+      <Button variant="outlined" onClick={handleSubmit}>
+        发送
+      </Button>
     </div>
   )
 }
